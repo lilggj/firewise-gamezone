@@ -1,81 +1,104 @@
 
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { House, Flame } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { AlertCircle, Menu, X } from 'lucide-react';
 
 const Header: React.FC = () => {
-  const [scrolled, setScrolled] = useState(false);
-
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+      if (window.scrollY > 20) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
     };
-
+    
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
+  
   return (
-    <motion.header
-      className={`fixed w-full top-0 z-50 transition-all duration-300 px-6 py-4 ${
-        scrolled ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm' : 'bg-transparent'
+    <motion.header 
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-sm' : 'bg-transparent'
       }`}
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <motion.div 
-          className="flex items-center gap-2"
-          whileHover={{ scale: 1.02 }}
-          transition={{ type: "spring", stiffness: 400, damping: 10 }}
-        >
-          <Flame className="h-6 w-6 text-fire" />
-          <span className="text-xl font-medium">FireWise</span>
-        </motion.div>
-        
-        <motion.nav 
-          className="hidden md:flex items-center gap-8"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-        >
-          <motion.a 
-            href="#" 
-            className="text-sm font-medium relative px-1 py-2 text-foreground/80 hover:text-foreground"
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
-          >
-            О Проекте
-          </motion.a>
-          <motion.a 
-            href="#" 
-            className="text-sm font-medium relative px-1 py-2 text-foreground/80 hover:text-foreground"
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
-          >
-            Сценарии
-          </motion.a>
-          <motion.a 
-            href="#" 
-            className="text-sm font-medium relative px-1 py-2 text-foreground/80 hover:text-foreground"
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
-          >
-            Советы
-          </motion.a>
-        </motion.nav>
-        
-        <motion.a
-          href="#start-game"
-          className="bg-fire hover:bg-fire-dark text-white px-4 py-2 rounded-full font-medium text-sm flex items-center gap-2 transition-all"
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.98 }}
-        >
-          <House className="h-4 w-4" />
-          <span>Начать Игру</span>
-        </motion.a>
+      <div className="max-w-7xl mx-auto px-4 md:px-8">
+        <div className="flex items-center justify-between py-4">
+          <Link to="/" className="flex items-center gap-2">
+            <AlertCircle className={`h-7 w-7 ${isScrolled ? 'text-fire' : 'text-white'}`} />
+            <span className={`text-xl font-semibold ${isScrolled ? 'text-gray-900 dark:text-white' : 'text-white'}`}>
+              FireWise
+            </span>
+          </Link>
+          
+          <nav className="hidden md:flex items-center gap-8">
+            <Link 
+              to="/"
+              className={`font-medium hover:text-fire transition-colors ${
+                isScrolled ? 'text-gray-700 dark:text-gray-300' : 'text-white'
+              }`}
+            >
+              Главная
+            </Link>
+            <Link 
+              to="/kids"
+              className={`font-medium hover:text-fire transition-colors ${
+                isScrolled ? 'text-gray-700 dark:text-gray-300' : 'text-white'
+              }`}
+            >
+              Для детей
+            </Link>
+          </nav>
+          
+          <div className="md:hidden">
+            <button 
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className={`p-2 rounded-md ${
+                isScrolled ? 'text-gray-700 dark:text-gray-300' : 'text-white'
+              }`}
+            >
+              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
+        </div>
       </div>
+      
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="px-4 py-4 flex flex-col gap-4">
+              <Link 
+                to="/"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="py-2 text-gray-700 dark:text-gray-300 hover:text-fire dark:hover:text-fire transition-colors font-medium"
+              >
+                Главная
+              </Link>
+              <Link 
+                to="/kids"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="py-2 text-gray-700 dark:text-gray-300 hover:text-fire dark:hover:text-fire transition-colors font-medium"
+              >
+                Для детей
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 };

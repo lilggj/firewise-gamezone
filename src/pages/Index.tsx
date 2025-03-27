@@ -1,11 +1,10 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Header from '../components/Header';
 import FireScenario from '../components/FireScenario';
 import GameProgress from '../components/GameProgress';
 import SafetyTip from '../components/SafetyTip';
-import { Fire, House, AlertCircle, Check } from 'lucide-react';
+import { AlertCircle, House, Check, Flame as FlameIcon } from 'lucide-react';
 
 // Scenario data
 const scenarios = [
@@ -71,7 +70,7 @@ const scenarios = [
         text: "Открыть окна",
         description: "Проветрить помещение, открыв окна.",
         isCorrect: false,
-        feedback: "Это может усилить тягу и распространение огня, если он есть!"
+        feedback: "Это может усилить тягу и распростра��ение огня, если он есть!"
       },
       {
         id: 202,
@@ -140,7 +139,7 @@ const scenarios = [
       },
       {
         id: 304,
-        text: "Держаться рядом со стеной",
+        text: "Держа��ься рядом со стеной",
         description: "Передвигаться вдоль стены, чтобы не потеряться.",
         isCorrect: true,
         feedback: "Хорошая идея! Стена может помочь вам ориентироваться в задымленном помещении."
@@ -186,7 +185,6 @@ const Index: React.FC = () => {
     setTotalScore(0);
     setGameCompleted(false);
     
-    // Scroll to game section
     const gameSection = document.getElementById('game-section');
     if (gameSection) {
       gameSection.scrollIntoView({ behavior: 'smooth' });
@@ -210,7 +208,6 @@ const Index: React.FC = () => {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <Header />
       
-      {/* Hero Section */}
       <motion.section 
         className="pt-32 pb-20 px-4 md:px-8"
         initial={{ opacity: 0 }}
@@ -248,7 +245,7 @@ const Index: React.FC = () => {
                 whileTap={{ scale: 0.95 }}
                 id="start-game"
               >
-                <Flame className="h-5 w-5" />
+                <FlameIcon className="h-5 w-5" />
                 <span>Начать симуляцию</span>
               </motion.button>
             </motion.div>
@@ -282,12 +279,10 @@ const Index: React.FC = () => {
         </div>
       </motion.section>
       
-      {/* Game Section */}
       <section id="game-section" className="py-16 px-4 md:px-8 bg-white dark:bg-gray-950">
         <div className="max-w-7xl mx-auto">
           <AnimatePresence mode="wait">
             {!gameStarted ? (
-              // Game intro
               <motion.div
                 key="game-intro"
                 initial={{ opacity: 0 }}
@@ -343,7 +338,6 @@ const Index: React.FC = () => {
                 </div>
               </motion.div>
             ) : gameCompleted ? (
-              // Game completion screen
               <motion.div
                 key="game-completed"
                 initial={{ opacity: 0 }}
@@ -359,7 +353,7 @@ const Index: React.FC = () => {
                     animate={{ scale: 1, rotate: 360 }}
                     transition={{ type: "spring", stiffness: 260, damping: 20 }}
                   >
-                    <Flame className="h-10 w-10 text-fire" />
+                    <FlameIcon className="h-10 w-10 text-fire" />
                   </motion.div>
                   
                   <h2 className="text-3xl font-bold mb-2">Поздравляем!</h2>
@@ -424,17 +418,14 @@ const Index: React.FC = () => {
                     />
                     <SafetyTip 
                       tip="Установите и регулярно проверяйте детекторы дыма в вашем доме. Меняйте батарейки не реже двух раз в год."
-                      icon={<AlarmSmoke className="h-5 w-5" />}
                     />
                     <SafetyTip 
                       tip="Держите огнетушитель в доступном месте и научитесь им пользоваться до того, как он понадобится."
-                      icon={<FireExtinguisher className="h-5 w-5" />}
                     />
                   </div>
                 </div>
               </motion.div>
             ) : (
-              // Actual game
               <motion.div
                 key="active-game"
                 initial={{ opacity: 0 }}
@@ -461,12 +452,11 @@ const Index: React.FC = () => {
         </div>
       </section>
       
-      {/* Footer */}
       <footer className="py-8 px-4 bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center gap-2 mb-4 md:mb-0">
-              <Flame className="h-5 w-5 text-fire" />
+              <FlameIcon className="h-5 w-5 text-fire" />
               <span className="text-lg font-medium">FireWise</span>
             </div>
             
