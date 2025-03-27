@@ -127,8 +127,8 @@ function loadQuestion(index) {
     optionElement.dataset.id = option.id;
     optionElement.dataset.correct = option.isCorrect;
     optionElement.textContent = option.text;
-    optionElement.addEventListener('click', () => handleAnswer(option.isCorrect));
     
+    // Don't add click event here - we'll use event delegation instead
     optionsContainer.appendChild(optionElement);
   });
 }
