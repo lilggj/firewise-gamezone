@@ -1,26 +1,81 @@
+
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>firewise-gamezone</title>
-    <meta name="description" content="Lovable Generated Project" />
-    <meta name="author" content="Lovable" />
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Пожарная безопасность для детей</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Registration Screen -->
+    <div id="registration-screen" class="screen">
+      <h1>Пожарная безопасность для детей</h1>
+      <div class="card">
+        <h2>Давай начнем!</h2>
+        <div class="alert">
+          <p><strong>Важная информация!</strong></p>
+          <p>Знание правил пожарной безопасности может спасти твою жизнь и жизнь других людей. 
+            Давай вместе узнаем, как правильно действовать при пожаре!</p>
+        </div>
+        <form id="registration-form">
+          <div class="form-group">
+            <label for="name">Как тебя зовут?</label>
+            <input type="text" id="name" required placeholder="Введи своё имя">
+          </div>
+          <button type="submit" class="btn">Начать игру</button>
+        </form>
+        <p class="footer-note">В этой игре ты узнаешь, как вести себя при пожаре в разных местах. 
+          За каждый правильный ответ ты будешь получать алмаз!</p>
+      </div>
+    </div>
 
-    <meta property="og:title" content="Lovable Generated Project" />
-    <meta property="og:description" content="Lovable Generated Project" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen hidden">
+      <div class="header">
+        <h1>Пожарная безопасность для детей</h1>
+        <div class="player-info">
+          <span id="player-name"></span>
+          <div class="diamond-counter">
+            <span id="diamonds-count">0</span>
+            <span class="diamond">💎</span>
+          </div>
+        </div>
+        <div class="progress-bar">
+          <div id="progress" class="progress"></div>
+        </div>
+      </div>
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
+      <div class="card question-card">
+        <h2 id="question-title">Вопрос</h2>
+        <div id="question-number" class="question-number">Вопрос 1 из 5</div>
+        
+        <div id="options-container" class="options-container">
+          <!-- Options will be dynamically inserted here -->
+        </div>
+        
+        <div id="explanation" class="explanation hidden">
+          <h3>Объяснение:</h3>
+          <p id="explanation-text"></p>
+        </div>
+      </div>
+    </div>
 
-  <body>
-    <div id="root"></div>
-    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
-    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    <!-- Completion Screen -->
+    <div id="completion-screen" class="screen hidden">
+      <h1>Поздравляем!</h1>
+      <div class="card">
+        <div class="completion-icon">🏆</div>
+        <h2>Ты справился!</h2>
+        <p>Молодец, <span id="completion-name"></span>!</p>
+        <p>Ты собрал <span id="completion-diamonds"></span> <span class="diamond">💎</span></p>
+        <p class="completion-message">Теперь ты знаешь, как действовать в случае пожара!</p>
+        <button id="play-again" class="btn">Играть снова</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
 </html>
