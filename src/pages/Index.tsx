@@ -2,7 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Flame, Users, Info, GameController } from 'lucide-react';
+import { Flame, Users, Info, Gamepad2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 
@@ -34,7 +34,7 @@ const Index: React.FC = () => {
               
               <Button asChild size="lg" variant="outline">
                 <Link to="/game">
-                  <GameController className="mr-2 h-5 w-5" />
+                  <Gamepad2 className="mr-2 h-5 w-5" />
                   Играть в игру
                 </Link>
               </Button>
@@ -96,7 +96,7 @@ const Index: React.FC = () => {
           </p>
           <Button asChild>
             <Link to="/game">
-              <GameController className="mr-2 h-5 w-5" />
+              <Gamepad2 className="mr-2 h-5 w-5" />
               Начать игру
             </Link>
           </Button>
